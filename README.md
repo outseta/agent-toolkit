@@ -1,6 +1,8 @@
-# Outseta Coding Agents
+# Outseta Agent Toolkit
 
-This repository contains a collection of skills, templates, and references designed to help coding agents (like Roo) integrate [Outseta](https://www.outseta.com/) into your applications. Outseta is an all-in-one operating system for SaaS founders, combining CRM, authentication, billing, and customer support.
+The **Outseta Agent Toolkit** is a comprehensive collection of skills, templates, and documentation designed to empower AI coding agents to build, integrate, and manage SaaS applications using [Outseta](https://www.outseta.com/).
+
+Outseta serves as the "business operating system" for SaaS, and this toolkit provides the necessary context and code patterns for agents to handle authentication, billing, CRM, and customer support integration with minimal friction.
 
 ## Key Features
 
