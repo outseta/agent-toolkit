@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <title>All the embeds</title>
+    <meta charset="UTF-8" />
+
+    <!-- Outseta Configuration -->
+    <script>
+      var o_options = {
+        domain: "snippets.outseta.com",
+        load: "emailList,nocode",
+        auth: {
+          // Only because I use this testing account
+          // for multiple demos and need to override
+          // the Post Login Url configured in Outseta.
+          authenticationCallbackUrl: window.location.origin,
+          registrationConfirmationUrl: window.location.origin,
+        },
+      };
+    </script>
+
+    <!-- Outseta External Script -->
+    <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+
+    <style>
+      .o--Subscribed--nextButton {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Email List Capture</h1>
+
+      <div>
+        <section>
+          <h2>Popup Button - data attributes</h2>
+          <pre>
+          <code>
+&lt;button 
+  data-o-email-list="1"
+  data-mode="popup"
+  data-email-list-uid="vW5xMZ94"
+&gt;
+  Email List Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button data-o-email-list="1" data-mode="popup" data-email-list-uid="vW5xMZ94">
+            Email List Button
+          </button>
+        </section>
+
+        <section>
+          <h2>Popup Button - code</h2>
+          <pre>
+          <code>
+&lt;button onClick="Outseta.emailList.open({mode: 'popup', emailListUid: 'vW5xMZ94'})"&gt;
+  Email List Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button onClick="Outseta.emailList.open({mode: 'popup', emailListUid: 'vW5xMZ94'})">
+            Email List Button
+          </button>
+        </section>
+
+        <section>
+          <h2>Popup Link</h2>
+          <pre>
+          <code>
+&lt;a href=&quot;https://snippets.outseta.com/emailList/vW5xMZ94&quot;
+  Email List Link
+&lt;/a&gt;
+          </code>
+        </pre>
+          <a href="https://snippets.outseta.com/emailList/vW5xMZ94">Email List Link</a>
+        </section>
+
+        <section>
+          <h2>On Page Embed - data attributes</h2>
+          <pre>
+          <code>
+&lt;div 
+  data-o-email-list="1"
+  data-mode="embed"
+  data-email-list-uid="vW5xMZ94"
+/&gt;           
+          </code>
+        </pre>
+          <div data-o-email-list="1" data-mode="embed" data-email-list-uid="vW5xMZ94" />
+        </section>
+
+        <section>
+          <h2>HTML FORM</h2>
+          <!-- Begin Outseta Email Signup Form -->
+          <form action="https://snippets.outseta.com/email/lists/xmey06mV/subscribe" method="post">
+            <div class="form-group">
+              <label for="Email">Email</label>
+              <input id="Email" name="Email" type="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="FirstName">First Name</label>
+              <input id="FirstName" name="FirstName" type="text" />
+            </div>
+
+            <div class="form-group">
+              <label for="LastName">Last Name</label>
+              <input id="LastName" name="LastName" type="text" />
+            </div>
+
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px" aria-hidden="true">
+              <input
+                type="text"
+                name="o_q24bClZJMfnImoR5BAUXwhkf_y1uZ3Ifp"
+                tabindex="-1"
+                value=""
+              />
+            </div>
+
+            <div class="clear">
+              <input type="submit" value="Subscribe" data-wait="Please wait..." />
+            </div>
+          </form>
+          <script src="https://cdn.outseta.com/emailsignup.min.js" defer></script>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

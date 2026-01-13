@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <title>All the embeds</title>
+    <meta charset="UTF-8" />
+
+    <!-- Outseta Configuration -->
+    <script>
+      var o_options = {
+        domain: "snippets.outseta.com",
+        load: "profile,nocode",
+        auth: {
+          // Only because I use this testing account
+          // for multiple demos and need to override
+          // the Post Login Url configured in Outseta.
+          authenticationCallbackUrl: window.location.origin,
+          registrationConfirmationUrl: window.location.origin,
+        },
+      };
+    </script>
+
+    <!-- Outseta External Script -->
+    <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+  </head>
+
+  <body>
+    <main>
+      <h1>Profile</h1>
+
+      <div>
+        <section>
+          <h2>Popup Button - data attributes</h2>
+          <p data-o-anonymous>⚠️ You must login for the button to work!</p>
+          <pre>
+          <code>
+&lt;button 
+  data-o-profile="1" 
+  data-mode="popup" 
+&gt;
+  Profile Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button data-o-profile="1" data-mode="popup">Profile Button</button>
+        </section>
+
+        <section>
+          <h2>Popup Button - code</h2>
+          <p data-o-anonymous>⚠️ You must login for the button to work!</p>
+          <pre>
+          <code>
+&lt;button onClick="Outseta.profile.open({mode: 'popup'})"&gt;
+  Profile Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button onClick="Outseta.profile.open({mode: 'popup'})">Profile Button</button>
+        </section>
+
+        <section>
+          <h2>Popup Link</h2>
+          <p data-o-anonymous>⚠️ You must login for the link to show!</p>
+          <pre>
+          <code>
+&lt;a href=&quot;https://snippets.outseta.com/profile#o-authenticated&quot;
+  Profile Link
+&lt;/a&gt;
+          </code>
+        </pre>
+          <a href="https://snippets.outseta.com/profile#o-authenticated">Profile Link</a>
+        </section>
+
+        <section>
+          <h2>On Page Embed - data attributes</h2>
+          <p data-o-anonymous>⚠️ You must login for the embed to work!</p>
+          <pre>
+          <code>
+&lt;div 
+  data-o-profile="1" 
+  data-mode="embed" 
+/&gt;           
+          </code>
+        </pre>
+          <div data-o-profile="1" data-mode="embed" />
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

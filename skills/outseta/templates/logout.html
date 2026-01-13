@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>All the embeds</title>
+    <meta charset="UTF-8" />
+
+    <!-- Outseta Configuration -->
+    <script>
+      var o_options = {
+        domain: "snippets.outseta.com",
+        load: "leadCapture,nocode",
+        auth: {
+          // Only because I use this testing account
+          // for multiple demos and need to override
+          // the Post Login Url configured in Outseta.
+          authenticationCallbackUrl: window.location.origin,
+          registrationConfirmationUrl: window.location.origin,
+        },
+      };
+    </script>
+
+    <!-- Outseta External Script -->
+    <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+  </head>
+
+  <body>
+    <main>
+      <h1>Logout</h1>
+
+      <div>
+        <section>
+          <h2>Logout Button - data attributes</h2>
+          <p data-o-anonymous>⚠️ You must login for the button to show!</p>
+          <pre>
+          <code>
+&lt;button 
+  data-o-logout-link="1"
+&gt;
+  Logout Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button data-o-logout-link="1">Logout Button</button>
+        </section>
+
+        <section>
+          <h2>Logout Button - code</h2>
+          <p data-o-anonymous>⚠️ You must login for the button to show!</p>
+          <pre>
+          <code>
+&lt;button data-o-authenticated onClick="Outseta.logout()"&gt;
+  Logout Button
+&lt;/button&gt;
+          </code>
+        </pre>
+          <button data-o-authenticated onClick="Outseta.logout()">Logout Button</button>
+        </section>
+
+        <section>
+          <h2>Logout Link</h2>
+          <p data-o-anonymous>⚠️ You must login for the button to show!</p>
+          <pre>
+          <code>
+&lt;a href=&quot;/#o-logout-link&quot;
+  Lead Link
+&lt;/a&gt;
+          </code>
+        </pre>
+          <a href="/#o-logout-link">Logout</a>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
