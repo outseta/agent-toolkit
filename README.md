@@ -64,7 +64,8 @@ Add to your `~/.claude.json` or via the CLI:
 
 - [Agents.md](https://agents.md/) - Standard for defining agent behaviors.
 - [Agent Skills](https://agentskills.io/home) - A directory of skills for AI agents.
-- [Outseta Documentation](https://www.outseta.com/docs) - Official Outseta help center.
+- [Outseta Knowledge Base](https://go.outseta.com/support/kb/categories) - Official Outseta help center.
+- [Developer Chat](https://n8n.havelaar.ltd/webhook/746be377-3f7e-4279-ae29-c910ba64eedf/chat) - AI assisted developer support for Outseta integrations.
 
 ## Getting Started
 
