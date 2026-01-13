@@ -60,6 +60,8 @@ Add to your `~/.claude.json` or via the CLI:
    - **Type**: `command`
    - **Command**: `npx -y mcp-remote https://n8n.havelaar.ltd/mcp/outseta`
 
+For an example project built with Roo Code see: [Outseta Vibe Coding Courses CMS](https://github.com/outseta/outseta-vibe-coding-CMS)
+
 ## External Resources
 
 - [Agents.md](https://agents.md/) - Standard for defining agent behaviors.
