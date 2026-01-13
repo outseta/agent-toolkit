@@ -28,7 +28,7 @@ Outseta's CRM is structured to support team-based SaaS out of the box:
 
 #### Frontend (React)
 
-- **AuthProvider**: Use the `AuthProvider` pattern to manage authentication state. See [`templates/react-authprovider.tsx`](.roo/skills/outseta/templates/react-authprovider.tsx).
+- **AuthProvider**: Use the `AuthProvider` pattern to manage authentication state. See [`templates/react-authprovider.tsx`](templates/react-authprovider.tsx).
 - **useAuth Hook**: Access user data and authentication methods via the `useAuth` hook.
 - **Conditional Rendering**: Prefer React conditional rendering over `data-o-*` attributes for a more robust experience in SPA.
 
@@ -92,16 +92,16 @@ The Outseta MCP Server can be used to further gain understanding of the Outseta 
 
 ## React Examples (must use with React)
 
-- **Embed Widgets**: A collection of the embeds rendered as React Components. See [`.roo/skills/outseta/templates/react-widgets.tsx`](.roo/skills/outseta/templates/react-widgets.tsx)
-- **Example App**: A bare bones React app with Outseta integration. See [`.roo/skills/outseta/templates/react-app.tsx`](.roo/skills/outseta/templates/react-app.tsx)
-- **Auth Provider**: A React Auth Provider integrated with Outseta. See [`.roo/skills/outseta/templates/react-authprovider.tsx`](.roo/skills/outseta/templates/react-authprovider.tsx)
-- **Protected Route**: Protect React routes with Outseta. See [`.roo/skills/outseta/templates/react-protectedroute.tsx`](.roo/skills/outseta/templates/react-protectedroute.tsx)
-- **Purchase Add-on**: Trigger the purchase dialog for a specific add-on. See [`.roo/skills/outseta/templates/react-purchase-addon.tsx`](.roo/skills/outseta/templates/react-purchase-addon.tsx)
+- **Embed Widgets**: A collection of the embeds rendered as React Components. See [`react-widgets.tsx`](templates/react-widgets.tsx)
+- **Example App**: A bare bones React app with Outseta integration. See [`react-app.tsx`](templates/react-app.tsx)
+- **Auth Provider**: A React Auth Provider integrated with Outseta. See [`react-authprovider.tsx`](templates/react-authprovider.tsx)
+- **Protected Route**: Protect React routes with Outseta. See [`react-protectedroute.tsx`](templates/react-protectedroute.tsx)
+- **Purchase Add-on**: Trigger the purchase dialog for a specific add-on. See [`react-purchase-addon.tsx`](templates/react-purchase-addon.tsx)
 
 ## NodeJS Examples
 
 - **Express App**: A simple Express NodeJS with Outseta webhook integration. See: [`nodejs-express.js`](templates/nodejs-express.js)
 - **Verify Webhook**: Code snippet to verify the authenticity of a webhook call. See: [`nodejs-verify-webhook.js`](templates/nodejs-verify-webhook.js)
-- **Track Usage**: An example how to implement usage based billing and pricing. See: [`nodejs-track-usage.md](references/nodejs-track-usage.md) and [`nodejs-track-usage.js`](templates/nodejs-track-usage.js)
-- **Verify JWT**: An example how to verify a JWT token. See: [`nodejs-verify-jwt.md`](references/nodejs-verify-jwt.md) and [`nodejs-verify-jwt.js](templates/nodejs-verify-jwt.js)
-- **Generate JWT**: Generate a User JWT token to access the API
+- **Track Usage**: An example how to implement usage based billing and pricing. See: [`nodejs-track-usage.md`](references/nodejs-track-usage.md) and [`nodejs-track-usage.js`](templates/nodejs-track-usage.js)
+- **Verify JWT**: An example how to verify a JWT token. See: [`nodejs-verify-jwt.md`](references/nodejs-verify-jwt.md) and [`nodejs-verify-jwt.js`](templates/nodejs-verify-jwt.js)
+- **Generate JWT**: Generate a User JWT token to access the API. See: [`nodejs-generate-jwt.md`](references/nodejs-generate-jwt.md) and [`nodejs-generate-jwt.js`](templates/nodejs-generate-jwt.js)
