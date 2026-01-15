@@ -44,7 +44,7 @@ Add to your `~/.claude.json` or via the CLI:
       "args": [
         "-y",
         "mcp-remote",
-        "https://n8n.havelaar.ltd/mcp/outseta"
+        "https://n8n-admin.outseta.com/mcp/outseta"
       ]
     }
   }
@@ -58,7 +58,7 @@ Add to your `~/.claude.json` or via the CLI:
 4. Enter the following:
    - **Name**: `outseta`
    - **Type**: `command`
-   - **Command**: `npx -y mcp-remote https://n8n.havelaar.ltd/mcp/outseta`
+   - **Command**: `npx -y mcp-remote https://n8n-admin.outseta.com/mcp/outseta`
 
 For an example project built with Roo Code see: [Outseta Vibe Coding Courses CMS](https://github.com/outseta/outseta-vibe-coding-CMS)
 
