@@ -1,76 +1,92 @@
 # Outseta Agent Toolkit
 
-The **Outseta Agent Toolkit** is a comprehensive collection of skills, templates, and documentation designed to empower AI coding agents to build, integrate, and manage SaaS applications using [Outseta](https://www.outseta.com/).
+A collection of skills, templates, and documentation for AI coding agents to integrate SaaS applications with [Outseta](https://www.outseta.com/) - the all-in-one platform for authentication, billing, CRM, and customer support.
 
-Outseta serves as the "business operating system" for SaaS, and this toolkit provides the necessary context and code patterns for agents to handle authentication, billing, CRM, and customer support integration with minimal friction.
+## Quick Start
 
-## Key Features
+1. Install the skill: `npx skills add outseta/agent-toolkit`
+2. Add the MCP server (see [below](#2-add-the-mcp-server))
+3. Ask your agent: *"Review the Outseta skill and help me integrate authentication"*
 
-- **Authentication**: Seamless integration using Outseta's "Magic Script" and embeddable widgets for login, sign-up, and profile management.
-- **Subscriptions & Billing**: Manage plans and gate features based on subscription status using JWT claims or the REST API.
-- **Data Sync**: Synchronize user data with local databases (like [Convex](https://www.convex.dev/)) using Outseta UIDs as foreign keys and webhooks for real-time updates.
-- **REST API**: Advanced server-to-server communication for custom onboarding flows and administrative tasks.
-- **Framework Support**: Ready-to-use templates for **React** and **Node.js**.
+## Installation
 
-## Project Structure
+### 1. Install the Skill
 
-- [`AGENTS.md`](AGENTS.md): Core rules and principles for agents working with Outseta.
-- [`skills/outseta/`](skills/outseta/): The primary skill definition and resources.
-  - [`SKILL.md`](skills/outseta/SKILL.md): Detailed synopsis of Outseta concepts and integration patterns.
-  - `templates/`: Code snippets for React components, Node.js handlers, and HTML embeds.
-  - `references/`: Detailed guides for JWT verification, usage tracking, and API usage.
+Install the Outseta skill using the [skills CLI](https://skills.sh):
 
-## Setup & Configuration
+```bash
+npx skills add outseta/agent-toolkit
+```
 
-### 1. Coding Agent Setup
-To get the most out of these skills, ensure your coding agent (e.g., Roo, Claude Code, Cursor) is configured to recognize the project structure:
-- **Workspace**: Open this repository as your root workspace.
-- **Context**: The agent should automatically read [`AGENTS.md`](AGENTS.md) at the start of a session to understand the project's core integration rules.
-- **Skills**: Ensure the agent has permission to explore the `skills/` directory to find relevant templates and documentation.
+This installs the templates and documentation into your project's `.skills/` directory. See [agentskills.io](https://agentskills.io/home) for more on agent skills.
 
-### 2. Outseta Remote MCP Server
-This project benefits from a dedicated MCP (Model Context Protocol) server that provides real-time access to Outseta's knowledge base and API references.
+<details>
+<summary><strong>Manual installation</strong></summary>
 
-To add the Outseta Remote MCP server to your agent configuration:
+If you prefer not to use the skills CLI, copy the `skills/outseta/` directory from this repository into your project's `.skills/` or `skills/` folder.
 
-#### For Claude Code
-Add to your `~/.claude.json` or via the CLI:
+</details>
+
+### 2. Add the MCP Server
+
+The Outseta MCP server provides real-time access to Outseta's knowledge base and API references.
+
+<details>
+<summary><strong>Claude Code</strong></summary>
+
+Add to your `~/.claude.json`:
 
 ```json
 {
   "mcpServers": {
     "outseta": {
       "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://n8n-admin.outseta.com/mcp/outseta"
-      ]
+      "args": ["-y", "mcp-remote", "https://n8n-webhooks.outseta.com/mcp/outseta"]
     }
   }
 }
 ```
 
-#### For Cursor
-1. Open **Cursor Settings** (`Cmd + Shift + J` or `Ctrl + Shift + J`).
-2. Navigate to **General** > **MCP**.
-3. Click **+ Add New MCP Server**.
-4. Enter the following:
+</details>
+
+<details>
+<summary><strong>Cursor</strong></summary>
+
+1. Open **Cursor Settings** (`Cmd + Shift + J` / `Ctrl + Shift + J`)
+2. Navigate to **General** > **MCP**
+3. Click **+ Add New MCP Server**
+4. Enter:
    - **Name**: `outseta`
    - **Type**: `command`
-   - **Command**: `npx -y mcp-remote https://n8n-admin.outseta.com/mcp/outseta`
+   - **Command**: `npx -y mcp-remote https://n8n-webhooks.outseta.com/mcp/outseta`
 
-For an example project built with Roo Code see: [Outseta Vibe Coding Courses CMS](https://github.com/outseta/outseta-vibe-coding-CMS)
+</details>
 
-## External Resources
+## Key Features
 
-- [Agents.md](https://agents.md/) - Standard for defining agent behaviors.
-- [Agent Skills](https://agentskills.io/home) - A directory of skills for AI agents.
-- [Outseta Knowledge Base](https://go.outseta.com/support/kb/categories) - Official Outseta help center.
-- [Developer Chat](https://n8n.havelaar.ltd/webhook/746be377-3f7e-4279-ae29-c910ba64eedf/chat) - AI assisted developer support for Outseta integrations.
+- **Authentication** - Outseta's "Magic Script" and embeddable widgets for login, sign-up, and profile management
+- **Subscriptions & Billing** - Gate features based on subscription status using JWT claims or the REST API
+- **Data Sync** - Use Outseta UIDs as foreign keys and webhooks for real-time updates
+- **REST API** - Server-to-server communication for custom onboarding and admin tasks
+- **Framework Templates** - Ready-to-use code for React and Node.js
 
-## Getting Started
+## Project Structure
 
-1. **Initialize**: Open this project in your IDE.
-2. **Configure MCP**: Set up the Outseta Remote MCP server as described above.
-3. **Prompt the Agent**: Start by asking the agent to "Review the Outseta integration rules in AGENTS.md and the outseta skill in SKILL.md".
+```
+├── AGENTS.md                    # Core integration rules for agents
+└── skills/outseta/
+    ├── SKILL.md                 # Outseta concepts and patterns
+    ├── templates/               # React, Node.js, and HTML snippets
+    └── references/              # JWT, usage tracking, API guides
+```
+
+## Example Project
+
+See [Outseta Vibe Coding Courses CMS](https://github.com/outseta/outseta-vibe-coding-CMS) for a complete project built with Roo Code using this toolkit.
+
+## Resources
+
+- [Outseta Knowledge Base](https://go.outseta.com/support/kb/categories) - Official help center
+- [Agents.md](https://agents.md/) - Standard for agent behaviors
+- [Agent Skills Spec](https://agentskills.io/home) - Specification for agent skills
+- [Skills Directory](https://skills.sh) - Browse and install agent skills
