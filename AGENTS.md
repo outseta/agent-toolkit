@@ -21,44 +21,22 @@ Always check [`skills/outseta/SKILL.md`](skills/outseta/SKILL.md) for existing t
 
 ## MCP Servers
 
-### Outseta Knowledge Base MCP
+Two MCP servers may be available. Use them as follows:
 
-Provides real-time access to Outseta knowledge base and API references. Use this for learning about Outseta concepts, finding documentation, and understanding API endpoints:
+### Outseta Knowledge Base MCP (`outseta`)
 
-```json
-{
-  "mcpServers": {
-    "outseta": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://n8n-webhooks.outseta.com/mcp/outseta"]
-    }
-  }
-}
-```
+Use for research and documentation lookup:
+- Finding Outseta concepts and best practices
+- Looking up API endpoint details and parameters
+- Understanding embed widget options and configuration
 
-### Outseta Admin MCP
+### Outseta Admin MCP (`outseta-admin`)
 
-Enables direct interaction with an Outseta account for administrative operations. Use this when you need to:
-- Query and manage CRM data (people, accounts, deals)
-- Create or update subscriptions and billing information
-- Manage email lists and marketing campaigns
-- Perform bulk data operations or migrations
-- Automate administrative tasks
+Use for direct account operations:
+- Querying and managing CRM data (people, accounts, deals)
+- Creating or updating subscriptions and billing
+- Managing email lists and marketing campaigns
+- Bulk data operations or migrations
+- Automating administrative tasks
 
-```json
-{
-  "mcpServers": {
-    "outseta-admin": {
-      "command": "npx",
-      "args": ["-y", "@outseta/admin-mcp-server"],
-      "env": {
-        "OUTSETA_SUBDOMAIN": "your-subdomain",
-        "OUTSETA_API_KEY": "your-api-key",
-        "OUTSETA_API_SECRET": "your-api-secret"
-      }
-    }
-  }
-}
-```
-
-**Note:** The Admin MCP requires API credentials from your Outseta account (Settings > Integrations > API Keys). Keep these credentials secure and never commit them to version control.
+**Important:** The Admin MCP connects to a live Outseta account. Always confirm destructive operations with the user before executing them.
