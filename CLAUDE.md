@@ -20,4 +20,4 @@ This is NOT an application codebase - it's a reference toolkit containing templa
 
 ## When Working on Outseta Integrations
 
-Refer to `AGENTS.md` for core integration rules, MCP server configurations, and available templates.
+Refer to @AGENTS.md for core integration rules, MCP server configurations, and available templates.
