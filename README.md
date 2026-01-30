@@ -5,8 +5,9 @@ A collection of skills, templates, and documentation for AI coding agents to int
 ## Quick Start
 
 1. Install the skill: `npx skills add outseta/agent-toolkit`
-2. Add the MCP server (see [below](#2-add-the-mcp-server))
-3. Ask your agent: *"Review the Outseta skill and help me integrate authentication"*
+2. Add agent instructions (see [below](#2-add-agent-instructions))
+3. Add MCP servers (see [below](#3-add-mcp-servers))
+4. Ask your agent: *"Review the Outseta skill and help me integrate authentication"*
 
 ## Installation
 
@@ -27,7 +28,26 @@ If you prefer not to use the skills CLI, copy the `skills/outseta/` directory fr
 
 </details>
 
-### 2. Add MCP Servers
+### 2. Add Agent Instructions
+
+Download the [AGENTS.md](https://raw.githubusercontent.com/outseta/agent-toolkit/main/AGENTS.md) file to your project root. This file provides core integration rules that agents will follow when working with Outseta.
+
+```bash
+curl -O https://raw.githubusercontent.com/outseta/agent-toolkit/main/AGENTS.md
+```
+
+<details>
+<summary><strong>Claude Code users</strong></summary>
+
+Also download [CLAUDE.md](https://raw.githubusercontent.com/outseta/agent-toolkit/main/CLAUDE.md) for Claude-specific guidance:
+
+```bash
+curl -O https://raw.githubusercontent.com/outseta/agent-toolkit/main/CLAUDE.md
+```
+
+</details>
+
+### 3. Add MCP Servers
 
 #### Outseta Knowledge Base MCP
 
