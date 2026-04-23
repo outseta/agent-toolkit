@@ -1,6 +1,6 @@
 # Outseta Agent Toolkit
 
-A collection of skills, templates, and documentation for AI coding agents to integrate SaaS applications with [Outseta](https://www.outseta.com/) - the all-in-one platform for authentication, billing, CRM, and customer support.
+A collection of skills, templates, and curated documentation for AI coding agents to integrate SaaS applications with [Outseta](https://www.outseta.com/) - the all-in-one platform for authentication, billing, CRM, and customer support.
 
 ## Quick Start
 
@@ -52,6 +52,8 @@ curl -O https://raw.githubusercontent.com/outseta/agent-toolkit/main/CLAUDE.md
 #### Outseta Knowledge Base MCP
 
 Provides real-time access to Outseta's knowledge base and API references.
+
+> This toolkit repository contains the curated skill, templates, and references used during implementation.
 
 <details>
 <summary><strong>Claude Code</strong></summary>
@@ -142,6 +144,7 @@ Add to your `~/.claude.json`:
 
 ```
 ├── AGENTS.md                    # Core integration rules for agents
+├── CLAUDE.md                    # Claude-specific guidance
 └── skills/outseta/
     ├── SKILL.md                 # Outseta concepts and patterns
     ├── templates/               # React, Node.js, and HTML snippets
