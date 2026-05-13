@@ -71,7 +71,7 @@ Add to your `~/.claude.json`:
 ```
 This will use the built-in OAuth authentication with Claude Code, it will take you to the Outseta website to log in.
 
-If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/#/app/support/kb/articles/z9M2EyW4)
+If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/support/kb/articles/z9M2EyW4/outseta-mcp-server-for-ai-assistants)
 
 ```json
 {
@@ -106,7 +106,7 @@ Add to your `~/.cursor/mcp.json` (or `.cursor/mcp.json` in your project):
 
 Cursor will prompt you to authenticate via OAuth on the Outseta website the first time the server is used.
 
-If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/#/app/support/kb/articles/z9M2EyW4)
+If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/support/kb/articles/z9M2EyW4/outseta-mcp-server-for-ai-assistants)
 
 ```json
 {
