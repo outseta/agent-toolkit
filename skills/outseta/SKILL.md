@@ -76,8 +76,8 @@ See [REST API](references/rest-api.md)
 
 The Outseta MCP Server can be used to further gain understanding of the Outseta concepts and how to use it through it's knowledge base, support examples as well as find reference documentation on the REST API.
 
-- Knowledge_Base
-- REST_API_Reference
+- Knowledge Base
+- REST API Reference
 - Examples (if you can't find an answer in the knowledge base)
 
 ## Embed Examples (pure JS/HTML only)

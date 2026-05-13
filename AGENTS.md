@@ -19,18 +19,14 @@ Always check [`skills/outseta/SKILL.md`](skills/outseta/SKILL.md) for existing t
 - Node.js JWT verification and webhook handling
 - Usage-based billing implementation
 
-## MCP Servers
+## MCP Server
 
-Two MCP servers may be available. Use them as follows:
-
-### Outseta Knowledge Base MCP (`outseta`)
+Use the Outseta MCP server whenever you can if it is available as follows:
 
 Use for research and documentation lookup:
 - Finding Outseta concepts and best practices
 - Looking up API endpoint details and parameters
 - Understanding embed widget options and configuration
-
-### Outseta Admin MCP (`outseta-admin`)
 
 Use for direct account operations:
 - Querying and managing CRM data (people, accounts, deals)
@@ -39,4 +35,4 @@ Use for direct account operations:
 - Bulk data operations or migrations
 - Automating administrative tasks
 
-**Important:** The Admin MCP connects to a live Outseta account. Always confirm destructive operations with the user before executing them.
+**Important:** The MCP connects to a live Outseta account. Always confirm destructive operations with the user before executing them.

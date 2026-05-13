@@ -64,47 +64,23 @@ Add to your `~/.claude.json`:
 {
   "mcpServers": {
     "outseta": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://n8n-webhooks.outseta.com/mcp/outseta"]
+      "url": "https://mcp.outseta.com"
     }
   }
 }
 ```
+This will use the built-in OAuth authentication with Claude Code, it will take you to the Outseta website to log in.
 
-</details>
-
-<details>
-<summary><strong>Cursor</strong></summary>
-
-1. Open **Cursor Settings** (`Cmd + Shift + J` / `Ctrl + Shift + J`)
-2. Navigate to **General** > **MCP**
-3. Click **+ Add New MCP Server**
-4. Enter:
-   - **Name**: `outseta`
-   - **Type**: `command`
-   - **Command**: `npx -y mcp-remote https://n8n-webhooks.outseta.com/mcp/outseta`
-
-</details>
-
-#### Outseta Admin MCP
-
-Enables direct interaction with your Outseta account for administrative operations (CRM, subscriptions, email lists, bulk data operations).
-
-<details>
-<summary><strong>Claude Code</strong></summary>
-
-Add to your `~/.claude.json`:
+If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/#/app/support/kb/articles/z9M2EyW4)
 
 ```json
 {
   "mcpServers": {
-    "outseta-admin": {
-      "command": "npx",
-      "args": ["-y", "@outseta/admin-mcp-server"],
-      "env": {
-        "OUTSETA_SUBDOMAIN": "your-subdomain",
-        "OUTSETA_API_KEY": "your-api-key",
-        "OUTSETA_API_SECRET": "your-api-secret"
+    "outseta": {
+      "url": "https://mcp.outseta.com",
+      "headers": {
+        "Authorization": "Outseta <key>:<secret>",
+        "X-Outseta-Subdomain": "<subdomain>.outseta.com"
       }
     }
   }
@@ -116,21 +92,37 @@ Add to your `~/.claude.json`:
 <details>
 <summary><strong>Cursor</strong></summary>
 
-1. Open **Cursor Settings** (`Cmd + Shift + J` / `Ctrl + Shift + J`)
-2. Navigate to **General** > **MCP**
-3. Click **+ Add New MCP Server**
-4. Enter:
-   - **Name**: `outseta-admin`
-   - **Type**: `command`
-   - **Command**: `npx -y @outseta/admin-mcp-server`
-5. Add environment variables:
-   - `OUTSETA_SUBDOMAIN`: your-subdomain
-   - `OUTSETA_API_KEY`: your-api-key
-   - `OUTSETA_API_SECRET`: your-api-secret
+Add to your `~/.cursor/mcp.json` (or `.cursor/mcp.json` in your project):
+
+```json
+{
+  "mcpServers": {
+    "outseta": {
+      "url": "https://mcp.outseta.com"
+    }
+  }
+}
+```
+
+Cursor will prompt you to authenticate via OAuth on the Outseta website the first time the server is used.
+
+If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/#/app/support/kb/articles/z9M2EyW4)
+
+```json
+{
+  "mcpServers": {
+    "outseta": {
+      "url": "https://mcp.outseta.com",
+      "headers": {
+        "Authorization": "Outseta <key>:<secret>",
+        "X-Outseta-Subdomain": "<subdomain>.outseta.com"
+      }
+    }
+  }
+}
+```
 
 </details>
-
-**Note:** The Admin MCP requires API credentials from your Outseta account (Settings > Integrations > API Keys). Keep these credentials secure and never commit them to version control.
 
 ## Key Features
 
