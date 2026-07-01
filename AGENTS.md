@@ -1,6 +1,16 @@
 # Outseta Integration
 
-This repository is the **Outseta Agent Toolkit** - a collection of templates, skills, and documentation for integrating SaaS applications with Outseta (authentication, billing, CRM, customer support).
+This repository is the **Outseta Agent Toolkit** - a collection of skills, documentation, and plain HTML templates for integrating SaaS applications with Outseta (authentication, billing, CRM, customer support).
+
+This is **not** an application codebase. It is a reference toolkit for agents, containing Outseta integration guidance, curated references, and reusable plain HTML embed templates.
+
+## Key Files and Structure
+
+- `AGENTS.md` - Core rules for Outseta integration and repository guidance.
+- `skills/outseta/SKILL.md` - Detailed Outseta concepts, integration patterns, official package guidance, and available HTML templates.
+- `skills/outseta/templates/` - Plain HTML embed snippets for non-React or low-code integrations.
+- `skills/outseta/references/` - Curated REST API guidance.
+- React and Node.js examples now live in `@outseta/react` and `@outseta/node-sdk`; use `skills/outseta/SKILL.md` for package usage guidance.
 
 ## Core Integration Rules
 
@@ -11,13 +21,13 @@ This repository is the **Outseta Agent Toolkit** - a collection of templates, sk
 
 ## Before Implementing
 
-Always check [`skills/outseta/SKILL.md`](skills/outseta/SKILL.md) for existing templates and patterns before writing new Outseta integration code. The skill contains ready-to-use examples for:
+Always check [`skills/outseta/SKILL.md`](skills/outseta/SKILL.md) for current package guidance and plain HTML templates before writing new Outseta integration code. The skill covers:
 
 - Signup and login embeds and popup dialogs
 - Lead capture forms and email list subscription forms
-- React AuthProvider, protected routes, and widgets
-- Node.js JWT verification and webhook handling
-- Usage-based billing implementation
+- React integration with `@outseta/react`
+- Node.js backend integration with `@outseta/node-sdk`
+- REST API and MCP lookup guidance
 
 ## MCP Server
 

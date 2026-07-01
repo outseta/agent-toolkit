@@ -5,7 +5,7 @@ description: Outseta is an all-in-one operating system for SaaS founders, combin
 
 # Outseta Synopsis
 
-Outseta is an all-in-one operating system for SaaS founders, combining CRM, authentication, billing, and customer support into a single platform. It is designed to handle the "business logic" of a SaaS product so developers can focus on the "functional logic."
+Outseta is an all-in-one operating system for SaaS founders, combining CRM, authentication, billing, and customer support. It is designed to handle the "business logic" of a SaaS product so developers can focus on the "functional logic."
 
 ## Core Architecture
 
@@ -22,49 +22,168 @@ Outseta's CRM is structured to support team-based SaaS out of the box:
 
 - **JWT (JSON Web Tokens):** Outseta uses JWTs for session management. These tokens contain claims like `PersonUid` and `AccountUid`.
 - **Verification:** Verify tokens server-side using Outseta's **JWKS (JSON Web Key Set)**.
-- **Gated Content:** Use the Outseta script to automatically show/hide UI elements based on the user's subscription plan or login status using `data-outseta-*` attributes.
+- **Gated Content:** Use the Outseta script to automatically show/hide UI elements based on the user's subscription plan or login status using `data-o-*` attributes.
 
-### 3. Integration Patterns
+## Integration Patterns
 
-#### Frontend (React)
+### Frontend (React)
 
-- **AuthProvider**: Use the `AuthProvider` pattern to manage authentication state. See [`templates/react-authprovider.tsx`](templates/react-authprovider.tsx).
-- **useAuth Hook**: Access user data and authentication methods via the `useAuth` hook.
-- **Conditional Rendering**: Prefer React conditional rendering over `data-o-*` attributes for a more robust experience in SPA.
+Use the official `@outseta/react` package instead of copying React templates from this toolkit.
+
+```bash
+npm install @outseta/react
+```
+
+Load Outseta's script in your app shell before rendering `OutsetaProvider`:
+
+```html
+<script>
+  var o_options = {
+    domain: "your-company.outseta.com",
+    // Include the widget modules you render: auth, profile, support, emailList, leadCapture.
+    load: "auth,profile,support,emailList,leadCapture,nocode",
+  };
+</script>
+<script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+```
+
+Use the package exports for auth state, widgets, gated routes, and add-on purchase flows:
 
 ```tsx
-const { user, logout, openLogin } = useAuth();
-return (
-  <>
-    {!user ? (
-      <Button onClick={() => openLogin()}>Login</Button>
-    ) : (
-      <Button onClick={() => logout()}>Logout</Button>
-    )}
-  </>
+import {
+  OutsetaProvider,
+  ProtectedRoute,
+  PurchaseAddonButton,
+  useOutseta,
+} from "@outseta/react";
+
+function Header() {
+  const { user, isLoading, openLogin, openSignup, openProfile, logout } = useOutseta();
+
+  if (isLoading) return null;
+
+  return user ? (
+    <>
+      <button onClick={() => openProfile({ tab: "profile" })}>Profile</button>
+      <button onClick={logout}>Logout</button>
+    </>
+  ) : (
+    <>
+      <button onClick={() => openSignup()}>Sign up</button>
+      <button onClick={() => openLogin()}>Login</button>
+    </>
+  );
+}
+
+export function App() {
+  return (
+    <OutsetaProvider>
+      <Header />
+      <ProtectedRoute plans={["plan_uid"]}>
+        <PremiumFeature />
+      </ProtectedRoute>
+      <PurchaseAddonButton addonUid="addon_uid">Buy add-on</PurchaseAddonButton>
+    </OutsetaProvider>
+  );
+}
+```
+
+`@outseta/react` exports:
+
+- `OutsetaProvider` and `useOutseta` for auth/user state.
+- Headless auth/profile components: `AuthEmbed`, `AuthButton`, `LoginButton`, `SignupButton`, `ProfileEmbed`, `ProfileButton`, `LogoutButton`, `ProtectedRoute`, `AuthCta`, `UpgradeCta`, and `PurchaseAddonButton`.
+- Headless support, email list, and lead capture components: `SupportEmbed`, `SupportButton`, `EmailListEmbed`, `EmailListButton`, `EmailListForm`, `LeadCaptureEmbed`, and `LeadCaptureButton`.
+- `createClient` plus generated vanilla-React data hooks for Outseta REST API access.
+
+The generated API hooks do not require an external data-fetching library or provider. They fetch on mount, expose `refetch`, and intentionally do not provide cross-component caching, request deduping, or background refetching. Create browser API clients with a user bearer `accessToken`, and pass the client through each hook's `request` option:
+
+```tsx
+import { createClient, useAccountGetAllAccounts } from "@outseta/react";
+
+const client = createClient({
+  subdomain: "your-company",
+  accessToken,
+});
+
+const { data, error, isLoading, refetch } = useAccountGetAllAccounts(undefined, {
+  request: client,
+});
+```
+
+Never expose Outseta API key credentials in browser code.
+
+### Frontend (No-Code/Low-Code and plain HTML)
+
+- **Magic Script**: Define `o_options` for your Outseta domain and include `<script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>` in your app shell.
+- **Widgets**: Trigger widgets via data attributes (e.g., `data-o-auth="1"`) or the `Outseta` global object.
+- **Lifecycle Events**: Use `Outseta.on('event', callback)` to react to login, logout, or profile updates.
+- **Gated Content**: Use the Outseta script to automatically show/hide UI elements based on the user's subscription plan or login status using `data-o-*` attributes (e.g., `data-o-anonymous="1"`, `data-o-authenticated="1"`). In React apps, prefer `@outseta/react` state and components for more reliable SPA behavior.
+
+### Backend (Node.js)
+
+Use the official `@outseta/node-sdk` package instead of copying Node.js templates from this toolkit.
+
+```bash
+npm install @outseta/node-sdk
+```
+
+The package exports helpers for server-side API clients, JWT verification, webhook signature verification, Express webhook routes, generating user access tokens, and usage-based billing:
+
+```ts
+import {
+  createClient,
+  createOutsetaWebhookHandler,
+  generateAccessToken,
+  outsetaWebhookTextParserOptions,
+  trackUsage,
+  verifyJwt,
+} from "@outseta/node-sdk";
+import express from "express";
+
+const adminClient = createClient({
+  subdomain: process.env.OUTSETA_SUBDOMAIN!,
+  apiKey: process.env.OUTSETA_API_KEY!,
+  apiSecret: process.env.OUTSETA_API_SECRET!,
+});
+
+const payload = await verifyJwt(userAccessToken, {
+  subdomain: process.env.OUTSETA_SUBDOMAIN!,
+});
+
+const generatedToken = await generateAccessToken(adminClient, "person@example.com");
+
+await trackUsage(adminClient, {
+  accountUid: "account_uid",
+  addOnUid: "addon_uid",
+  amount: 1,
+});
+
+const app = express();
+app.post(
+  "/outseta/webhook",
+  express.text(outsetaWebhookTextParserOptions),
+  createOutsetaWebhookHandler({
+    signingKey: process.env.OUTSETA_WEBHOOK_SIGNING_KEY!,
+    async onWebhook(payload) {
+      // Handle Activity Notification payload.
+    },
+  }),
 );
 ```
 
-#### Frontend (No-Code/Low-Code)
+Important backend notes:
 
-- **Magic Script**: Include `<script src="https://cdn.outseta.com/outseta.min.js"></script>` in your head.
-- **Widgets**: Trigger widgets via data attributes (e.g., `data-outseta-auth="login"`) or the `Outseta` global object.
-- **Lifecycle Events**: Use `Outseta.on('event', callback)` to react to login, logout, or profile updates.
-- **Gated Content**: Use the Outseta script to automatically show/hide UI elements based on the user's subscription plan or login status using `data-o-*` attributes (e.g., `data-o-anonymous="1"`, `data-o-authenticated="1"`). Note: In React apps, prefer the `AuthProvider` pattern for more reliable state management.
+- Use API key credentials only on the server.
+- For user-scoped server requests, create a client with `{ subdomain, accessToken }`.
+- Verify webhook signatures against the exact raw request body. In Express, use `express.text(outsetaWebhookTextParserOptions)` for the webhook route before `createOutsetaWebhookHandler`.
+- For full generated REST API functions, use `@outseta/api-client` and pass SDK clients via `withClient(client)` when needed.
 
-- **JWT Validation:** Extract the token from the `Authorization` header and validate it against Outseta's public keys.
-- **Webhooks:** Use **Activity Notifications** to sync data. Common events include:
-  - `Person_Added` / `Person_Updated`
-  - `Account_Added` / `Account_Updated`
-  - `Subscription_Created` / `Subscription_Updated`
-- **Security:** Always verify webhook signatures using the SHA256 secret provided in the Outseta dashboard.
-
-#### REST API
+### REST API
 
 - Use for server-to-server communication, custom onboarding, or administrative tasks.
 - Base URL: `https://your-domain.outseta.com/api/v1/`
 
-See [REST API](references/rest-api.md)
+See [REST API](references/rest-api.md).
 
 ## Key Developer Concepts
 
@@ -74,13 +193,15 @@ See [REST API](references/rest-api.md)
 
 ## MCP Server
 
-The Outseta MCP Server can be used to further gain understanding of the Outseta concepts and how to use it through it's knowledge base, support examples as well as find reference documentation on the REST API.
+The Outseta MCP Server can be used to further gain understanding of the Outseta concepts and how to use it through its knowledge base, support examples, and REST API reference documentation.
 
 - Knowledge Base
 - REST API Reference
 - Examples (if you can't find an answer in the knowledge base)
 
 ## Embed Examples (pure JS/HTML only)
+
+These templates remain in this toolkit for non-React or low-code integrations:
 
 - **Login:** Standard login widget. See [`login.html`](templates/login.html)
 - **Signup:** Registration widget with optional defaults. See [`signup.html`](templates/signup.html)
@@ -89,19 +210,3 @@ The Outseta MCP Server can be used to further gain understanding of the Outseta 
 - **Lead Capture:** Custom lead capture forms. See [`leadcapture.html`](templates/leadcapture.html)
 - **Email List:** Email list subscription forms. See [`emaillist.html`](templates/emaillist.html)
 - **Support:** Support ticket and knowledge base integration. See [`support.html`](templates/support.html)
-
-## React Examples (must use with React)
-
-- **Embed Widgets**: A collection of the embeds rendered as React Components. See [`react-widgets.tsx`](templates/react-widgets.tsx)
-- **Example App**: A bare bones React app with Outseta integration. See [`react-app.tsx`](templates/react-app.tsx)
-- **Auth Provider**: A React Auth Provider integrated with Outseta. See [`react-authprovider.tsx`](templates/react-authprovider.tsx)
-- **Protected Route**: Protect React routes with Outseta. See [`react-protectedroute.tsx`](templates/react-protectedroute.tsx)
-- **Purchase Add-on**: Trigger the purchase dialog for a specific add-on. See [`react-purchase-addon.tsx`](templates/react-purchase-addon.tsx)
-
-## NodeJS Examples
-
-- **Express App**: A simple Express NodeJS with Outseta webhook integration. See: [`nodejs-express.js`](templates/nodejs-express.js)
-- **Verify Webhook**: Code snippet to verify the authenticity of a webhook call. See: [`nodejs-verify-webhook.js`](templates/nodejs-verify-webhook.js)
-- **Track Usage**: An example how to implement usage based billing and pricing. See: [`nodejs-track-usage.md`](references/nodejs-track-usage.md) and [`nodejs-track-usage.js`](templates/nodejs-track-usage.js)
-- **Verify JWT**: An example how to verify a JWT token. See: [`nodejs-verify-jwt.md`](references/nodejs-verify-jwt.md) and [`nodejs-verify-jwt.js`](templates/nodejs-verify-jwt.js)
-- **Generate JWT**: Generate a User JWT token to access the API. See: [`nodejs-generate-jwt.md`](references/nodejs-generate-jwt.md) and [`nodejs-generate-jwt.js`](templates/nodejs-generate-jwt.js)

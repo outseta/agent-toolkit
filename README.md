@@ -1,6 +1,6 @@
 # Outseta Agent Toolkit
 
-A collection of skills, templates, and curated documentation for AI coding agents to integrate SaaS applications with [Outseta](https://www.outseta.com/) - the all-in-one platform for authentication, billing, CRM, and customer support.
+A collection of skills, curated documentation, and plain HTML templates for AI coding agents to integrate SaaS applications with [Outseta](https://www.outseta.com/) - the all-in-one platform for authentication, billing, CRM, and customer support.
 
 ## Quick Start
 
@@ -19,7 +19,7 @@ Install the Outseta skill using the [skills CLI](https://skills.sh):
 npx skills add outseta/agent-toolkit
 ```
 
-This installs the templates and documentation into your project's `.skills/` directory. See [agentskills.io](https://agentskills.io/home) for more on agent skills.
+This installs the Outseta skill, plain HTML templates, and curated references into your project's `.skills/` directory. See [agentskills.io](https://agentskills.io/home) for more on agent skills.
 
 <details>
 <summary><strong>Manual installation</strong></summary>
@@ -53,7 +53,7 @@ curl -O https://raw.githubusercontent.com/outseta/agent-toolkit/main/CLAUDE.md
 
 Provides real-time access to Outseta's knowledge base and API references.
 
-> This toolkit repository contains the curated skill, templates, and references used during implementation.
+> This toolkit repository contains the curated skill, plain HTML templates, and references used during implementation. React and Node.js implementation examples live in the official npm packages listed below.
 
 <details>
 <summary><strong>Claude Code</strong></summary>
@@ -130,7 +130,19 @@ If for some reason you don't want to use OAuth authentication, you can use API k
 - **Subscriptions & Billing** - Gate features based on subscription status using JWT claims or the REST API
 - **Data Sync** - Use Outseta UIDs as foreign keys and webhooks for real-time updates
 - **REST API** - Server-to-server communication for custom onboarding and admin tasks
-- **Framework Templates** - Ready-to-use code for React and Node.js
+- **Official SDK Guidance** - Instructions for `@outseta/react` and `@outseta/node-sdk`
+- **Plain HTML Templates** - Ready-to-use embed snippets for non-React or low-code integrations
+
+## Official Packages for App Code
+
+React and Node.js examples/templates now live in the official npm packages:
+
+```bash
+npm install @outseta/react
+npm install @outseta/node-sdk
+```
+
+Use `skills/outseta/SKILL.md` for package usage guidance, exported helpers/components, and notes about loading the Outseta script, verifying JWTs, handling webhooks, and tracking usage.
 
 ## Project Structure
 
@@ -139,8 +151,8 @@ If for some reason you don't want to use OAuth authentication, you can use API k
 ├── CLAUDE.md                    # Claude-specific guidance
 └── skills/outseta/
     ├── SKILL.md                 # Outseta concepts and patterns
-    ├── templates/               # React, Node.js, and HTML snippets
-    └── references/              # JWT, usage tracking, API guides
+    ├── templates/               # Plain HTML embed snippets
+    └── references/              # Curated REST API guide
 ```
 
 ## Example Project
