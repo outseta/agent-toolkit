@@ -16,7 +16,7 @@ To construct the authorization token you need to create an API key under Setting
 
 **Example:**
 
-Outseta ce08fd5a-e1ee-4472-9c5f-b7575d8369b2:74fc1d2242a4eb7336d34b0e40cfbc5f
+Outseta [APIKey]:[SecretKey]
 
 ### Client Side
 
@@ -26,7 +26,7 @@ If you plan to use the API from the client side do NOT use the API keys as those
 
 **Example:**
 
-bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InhObnZiLWxaWDJWNHdKTFctaVdreXBSR0cwVSJ9.eyJ1bmlxdWVfbmFtZSI6ImRpbWl0cmlzQG91dHNldGEuY29tIiwiZ2l2ZW5fbmFtZSI6IkRpbWl0cmlzIiwiZmFtaWx5X25hbWUiOiJHZW9yZ2Frb3BvdWxvcyIsImVtYWlsIjoiZGltaXRyaXNAb3V0c2V0YS5jb20iLCJuYW1laWQiOiI0WFFZcVFQQiIsIm91dHNldGE6YWNjb3VudFVpZCI6IndabU5abTJPIiwib3V0c2V0YTphY2NvdW50Q2xpZW50SWRlbnRpZmllciI6IjEiLCJ
+bearer [access_token]
 
 ## API Guidelines
 
@@ -40,6 +40,19 @@ bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InhObnZiLWxaWDJWNHdKTFctaVdre
 ## Get all API conventions
 
 You can apply filtering by adding additional information on the querystring on the methods that retrieve all the entities in a domain (e.g., Get all accounts, Get all people). The conventions are as follows:
+
+### List response shape
+
+Every "get all" endpoint returns the records under `items` and the pagination information under `metadata`. When no `limit` is supplied the default page size is 25.
+
+```json
+{
+  "metadata": { "limit": 25, "offset": 0, "total": 250 },
+  "items": [ ... ]
+}
+```
+
+Every entity in `items` carries an `_objectType` discriminator identifying its type (e.g. `Person`).
 
 ### Field Selection
 

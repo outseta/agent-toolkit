@@ -45,4 +45,4 @@ Use for direct account operations:
 - Bulk data operations or migrations
 - Automating administrative tasks
 
-**Important:** The MCP connects to a live Outseta account. Always confirm destructive operations with the user before executing them.
+**Important:** The MCP connects to a live Outseta account, and its changes (especially deletes and subscription changes) can be irreversible. Always confirm destructive **or bulk** operations with the user before executing them — verify scope, prefer a reversible or previewable path, and proceed only on explicit confirmation.
