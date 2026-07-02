@@ -21,7 +21,7 @@ Outseta's CRM is structured to support team-based SaaS out of the box:
 ### 2. Authentication & Security
 
 - **JWT (JSON Web Tokens):** Outseta uses JWTs for session management. Outseta-specific claims are **namespaced**: `sub` is the person Uid, and `outseta:accountUid`, `outseta:planUid`, `outseta:isPrimary` carry account/plan context. There are no `PersonUid`/`AccountUid`/`planUid` claims — for plan gating, read `outseta:planUid`.
-- **Verification:** Verify tokens server-side against Outseta's **JWKS (JSON Web Key Set)** at `/.well-known/jwks`. Outseta is also a standard OIDC provider — fetch its discovery document at `/.well-known/openid-configuration` and read `authorization_endpoint`/`token_endpoint`/`userinfo_endpoint`/`jwks_uri` from it rather than hardcoding.
+- **Verification:** Verify tokens server-side against Outseta's **JWKS (JSON Web Key Set)**, fetched directly from `/.well-known/jwks` — that endpoint is fixed, so read the signing keys straight from it (no discovery round-trip is needed just to verify a token). Separately, when integrating Outseta as a sign-in (OIDC) provider, discover endpoints from `/.well-known/openid-configuration` (`authorization_endpoint`/`token_endpoint`/`userinfo_endpoint`/`jwks_uri`) rather than hardcoding them.
 - **Gated Content:** Use the Outseta script to automatically show/hide UI elements based on the user's subscription plan or login status using `data-o-*` attributes.
 
 ## Integration Patterns
