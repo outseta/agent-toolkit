@@ -49,78 +49,54 @@ curl -O https://raw.githubusercontent.com/outseta/agent-toolkit/main/CLAUDE.md
 
 ### 3. Add MCP Servers
 
-#### Outseta Knowledge Base MCP
+#### Outseta MCP
 
-Provides real-time access to Outseta's knowledge base and API references.
+Provides real-time access to Outseta's knowledge base and REST API reference, plus read and write access to the data in your Outseta account.
+
+The server is at `https://agent.outseta.com/mcp` and uses OAuth only: your client opens the Outseta login page the first time it connects. API-key headers are not accepted by this server.
 
 > This toolkit repository contains the curated skill, plain HTML templates, and references used during implementation. React and Node.js implementation examples live in the official npm packages listed below.
 
 <details>
 <summary><strong>Claude Code</strong></summary>
 
-Add to your `~/.claude.json`:
+```bash
+claude mcp add --transport http outseta https://agent.outseta.com/mcp
+```
+
+Or add to `~/.claude.json`:
 
 ```json
 {
   "mcpServers": {
     "outseta": {
-      "url": "https://mcp.outseta.com"
+      "type": "http",
+      "url": "https://agent.outseta.com/mcp"
     }
   }
 }
 ```
-This will use the built-in OAuth authentication with Claude Code, it will take you to the Outseta website to log in.
 
-If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/support/kb/articles/z9M2EyW4/outseta-mcp-server-for-ai-assistants)
-
-```json
-{
-  "mcpServers": {
-    "outseta": {
-      "url": "https://mcp.outseta.com",
-      "headers": {
-        "Authorization": "Outseta <key>:<secret>",
-        "X-Outseta-Subdomain": "<subdomain>.outseta.com"
-      }
-    }
-  }
-}
-```
+Run `/mcp` in Claude Code to complete the OAuth login on the Outseta website.
 
 </details>
 
 <details>
 <summary><strong>Cursor</strong></summary>
 
-Add to your `~/.cursor/mcp.json` (or `.cursor/mcp.json` in your project):
+Add to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in your project):
 
 ```json
 {
   "mcpServers": {
     "outseta": {
-      "url": "https://mcp.outseta.com"
+      "url": "https://agent.outseta.com/mcp"
     }
   }
 }
 ```
 
 Cursor will prompt you to authenticate via OAuth on the Outseta website the first time the server is used.
-
-If for some reason you don't want to use OAuth authentication, you can use API keys as well. See: [Outseta MCP Server for AI Assistants](https://go.outseta.com/support/kb/articles/z9M2EyW4/outseta-mcp-server-for-ai-assistants)
-
-```json
-{
-  "mcpServers": {
-    "outseta": {
-      "url": "https://mcp.outseta.com",
-      "headers": {
-        "Authorization": "Outseta <key>:<secret>",
-        "X-Outseta-Subdomain": "<subdomain>.outseta.com"
-      }
-    }
-  }
-}
-```
 
 </details>
 

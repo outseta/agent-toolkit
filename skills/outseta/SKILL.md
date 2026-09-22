@@ -193,11 +193,37 @@ See [REST API](references/rest-api.md).
 
 ## MCP Server
 
-The Outseta MCP Server can be used to further gain understanding of the Outseta concepts and how to use it through its knowledge base, support examples, and REST API reference documentation.
+The Outseta MCP server (`https://agent.outseta.com/mcp`, OAuth login) grounds an integration in current documentation and lets you inspect or change live account data. It exposes three tools:
 
-- Knowledge Base
-- REST API Reference
-- Examples (if you can't find an answer in the knowledge base)
+| Tool | Network | Use it for |
+| --- | --- | --- |
+| `bash` | none | Searching the knowledge base (`/root/docs/kb`) and REST API reference (`/root/docs/api`) |
+| `javascript_read` | GET/HEAD on the account API | Reading people, accounts, subscriptions, plans, email lists; verifying a write |
+| `javascript_write` | POST/PUT/PATCH on the account API | Creating and updating records. Requires a `writeSummary`. DELETE is never available. |
+
+### Research workflow
+
+1. Concepts and how-tos: `grep -ril "<term>" /root/docs/kb`, then read the article. Cite the `sourceArticleUrl` from its frontmatter, not the workspace path.
+2. REST conventions: `/root/docs/api/README.md` covers the `Authorization: Outseta {key}:{secret}` scheme, the `items`/`metadata` list envelope, `offset` as a zero-based page index, the `limit` cap (100, or 25 when child fields are requested), filtering operators, and the webhook activity list.
+3. Endpoint details: one page per endpoint, for example `/root/docs/api/crm--person-getallpeople.md`. The **Client call:** line gives the generated function and argument order for the JavaScript tools. `/root/outseta.d.ts` has the exact types; grep it rather than reading it whole.
+
+### Account operations
+
+```ts
+import { createClient, personGetAllPeople, personUpdatePerson } from "/root/outseta.js";
+
+const client = createClient(); // uses the MCP session's auth
+const { items, metadata } = (
+  await personGetAllPeople({ Email: "ada@example.com", fields: "Uid,Email,LastName" }, { client })
+).data;
+
+// javascript_write only, with a writeSummary such as "Set LastName to Hopper on person <Uid>":
+await personUpdatePerson(items[0].Uid, { LastName: "Hopper" }, { client });
+```
+
+- Prefer the generated function over `client("/api/v1/...")`. `{ client }` always goes in the last `options` argument.
+- Read before you write: query the exact records a change touches, show the scope to the user, and confirm before any bulk or irreversible write.
+- Deletes are not possible through the MCP. Point the user to the REST `DELETE` endpoint or the Outseta UI.
 
 ## Embed Examples (pure JS/HTML only)
 

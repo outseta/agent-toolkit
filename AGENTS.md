@@ -31,18 +31,15 @@ Always check [`skills/outseta/SKILL.md`](skills/outseta/SKILL.md) for current pa
 
 ## MCP Server
 
-Use the Outseta MCP server whenever you can if it is available as follows:
+Use the Outseta MCP server (`https://agent.outseta.com/mcp`) whenever it is available. It does not expose one tool per operation. It exposes three sandboxed execution tools:
 
-Use for research and documentation lookup:
-- Finding Outseta concepts and best practices
-- Looking up API endpoint details and parameters
-- Understanding embed widget options and configuration
+- `bash` - a read-only documentation workspace with no network access. The knowledge base is at `/root/docs/kb` and the REST API reference is at `/root/docs/api` (one page per endpoint, plus `README.md` covering auth, pagination, filtering, and webhooks). Use it for research: Outseta concepts and best practices, endpoint details and parameters, embed widget options.
+- `javascript_read` - runs JavaScript against the connected account with the generated client in `/root/outseta.js`. GET only. Use it to query CRM data (people, accounts, deals), subscriptions, plans, and email lists, and to verify the result of a write.
+- `javascript_write` - the same client for POST, PUT, and PATCH. Every call requires a `writeSummary` stating exactly what will change, which the client shows for approval. Use it to create or update records, subscriptions, billing, and email list membership, including bulk updates and migrations.
 
-Use for direct account operations:
-- Querying and managing CRM data (people, accounts, deals)
-- Creating or updating subscriptions and billing
-- Managing email lists and marketing campaigns
-- Bulk data operations or migrations
-- Automating administrative tasks
+Rules:
 
-**Important:** The MCP connects to a live Outseta account, and its changes (especially deletes and subscription changes) can be irreversible. Always confirm destructive **or bulk** operations with the user before executing them — verify scope, prefer a reversible or previewable path, and proceed only on explicit confirmation.
+- Before writing API code, open the endpoint page under `/root/docs/api`. Its **Client call:** line gives the generated function and argument order; `{ client }` always goes in the last `options` argument.
+- Cite knowledge base articles by the `sourceArticleUrl` in their frontmatter, never by workspace path.
+- DELETE is not available through the MCP. When a task requires deleting records, say so and point the user to the REST `DELETE` endpoint or the Outseta UI instead of working around it.
+- The MCP connects to a live Outseta account and its writes can be irreversible. Always confirm destructive **or bulk** operations with the user before executing them: establish the exact scope with a `javascript_read` query first, prefer a reversible or previewable path, and proceed only on explicit confirmation.
